@@ -1,1 +1,1 @@
-# search-utility
+# searchutility
