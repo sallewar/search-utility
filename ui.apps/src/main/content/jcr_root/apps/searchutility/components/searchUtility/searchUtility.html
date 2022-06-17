@@ -1,0 +1,86 @@
+
+<sly data-sly-use.template="core/wcm/components/commons/v1/templates.html"></sly>
+<sly data-sly-include="/libs/wcm/core/components/init/init.jsp"/>
+<sly data-sly-call="${template.placeholder @ isEmpty=!text, classAppend='cmp-title'}"></sly>
+
+<div>
+<table className="table config-table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th colSpan="4" className="text-center">
+                  Configured search values
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-sly-test.activeAsset="${properties.activeAsset}">
+                    <td>
+                      <b>Asset Name:</b>
+                    </td>
+                    <td>${properties.assetName}</td>
+                    <td>
+                      <b>Asset Search Path:</b>
+                    </td>
+                    <td>${properties.assetPath}</td>
+                  </tr>
+                <tr data-sly-test.activeComp="${properties.activeComp}">
+                    <td>
+                      <b>Component Name:</b>
+                    </td>
+                    <td>${properties.compName}</td>
+                    <td>
+                      <b>Component Search Path:</b>
+                    </td>
+                    <td>4${properties.compPath}</td>
+                  </tr>
+                   <tr data-sly-test.activeSearchString="${properties.activeSearchString}">
+                    <td>
+                      <b>Search String:</b>
+                    </td>
+                    <td>${properties.searchString}</td>
+                    <td>
+                      <b>String Search Path:</b>
+                    </td>
+                    <td>${properties.rootPath}</td>
+                  </tr>
+                     <tr data-sly-test.activeSearchUrl="${properties.activeSearchUrl}">
+                    <td>
+                      <b>Search URL:</b>
+                    </td>
+                    <td>${properties.urlPattern}</td>
+                    <td>
+                      <b>Link Search Path:</b>
+                    </td>
+                    <td>${properties.searchPath}</td>
+                  </tr>
+                <tr data-sly-test.activeProperty="${properties.activeProperty}">
+                    <td>
+                      <b>Property Details:</b>
+                    </td>
+                    <td>
+                      <b>Property Name:</b> ${properties.propertyName}
+                      <br />
+                      <b>Property Value:</b> ${properties.propertyValue}
+                    </td>
+                    <td>
+                      <b>Property Search Path:</b>
+                    </td>
+                    <td>${properties.propertySearchPath}</td>
+                  </tr>
+            </tbody>
+          </table>
+			<input type="button" value=" Search Data" id="btn1"
+            className="my-4 card-button"
+
+          >
+
+          </input>
+</div>
+<script>
+$("#btn1").click(function(){
+  $.ajax({url: "/content/searchutility/servlets/searchTool", success: function(result){
+    $("#div1").html(result);
+  }});
+});
+</script>
+

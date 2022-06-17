@@ -1,0 +1,10 @@
+{
+    "scripts": [
+        "create path (sling:OrderedFolder) /content/dam/searchutility",
+        "create path (nt:unstructured) /content/dam/searchutility/jcr:content",
+        "set properties on /content/dam/searchutility/jcr:content",
+        "set cq:conf{String} to /conf/searchutility",
+        "set jcr:title{String} to \"Search Utility\"",
+        "end"
+    ]
+}

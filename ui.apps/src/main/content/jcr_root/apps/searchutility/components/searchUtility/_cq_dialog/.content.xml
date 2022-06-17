@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="Search Utility"
+    sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/coral/foundation/container">
+        <layout
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/foundation/layouts/tabs"
+            type="nav"/>
+        <items jcr:primaryType="nt:unstructured">
+            <tabs
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/coral/foundation/tabs"
+                maximized="{Boolean}true">
+                <items jcr:primaryType="nt:unstructured">
+                    <assetSearch
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Asset Search"
+                        sling:resourceType="granite/ui/components/coral/foundation/container">
+                        <layout
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"/>
+                        <items jcr:primaryType="nt:unstructured">
+                            <activeAsset
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/switch"
+                                fieldDescription="Generate Asset Report"
+                                fieldLabel="Generate Asset Report"
+                                name="./activeAsset"/>
+                            <assetName
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldDescription="Provide DAM aasset name"
+                                fieldLabel="Asset Name"
+                                name="./assetName"/>
+                            <assetPath
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                fieldDescription="Provide DAM asset Path"
+                                fieldLabel="Asset Search Path:"
+                                name="./assetPath"
+                                rootPath="/content/dam"/>
+                        </items>
+                    </assetSearch>
+                    <componentSearch
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Component Search"
+                        sling:resourceType="granite/ui/components/coral/foundation/container">
+                        <layout
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"/>
+                        <items jcr:primaryType="nt:unstructured">
+                            <activeComponent
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/switch"
+                                fieldDescription="Generate Component Report"
+                                fieldLabel="Generate Component Report"
+                                name="./activeComp"/>
+                            <componentPath
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                fieldDescription="Provide component search path."
+                                fieldLabel="Component Search Path:"
+                                name="./compPath"
+                                rootPath="/content"/>
+                            <componentName
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                emptyOption="{Boolean}true"
+                                fieldLabel="Component Name"
+                                name="./compName">
+                                <datasource
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="searchUtility/componentsDropdownOptions"/>
+                            </componentName>
+                        </items>
+                    </componentSearch>
+                    <stringSearch
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="String Search"
+                        sling:resourceType="granite/ui/components/coral/foundation/container">
+                        <layout
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"/>
+                        <items jcr:primaryType="nt:unstructured">
+                            <activeSearchString
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/switch"
+                                fieldDescription="Generate Report listing occurrences of requested text across page properties and components."
+                                fieldLabel="Generate String Search Report"
+                                name="./activeSearchString"/>
+                            <searchString
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldDescription="Provide text that needs to be searched within website content"
+                                fieldLabel="Search Text"
+                                name="./searchString"/>
+                            <rootPath
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                fieldDescription="Provide search path. Will take from config if left blank"
+                                fieldLabel="Search Path"
+                                name="./rootPath"
+                                rootPath="/content"/>
+                        </items>
+                    </stringSearch>
+                    <urlSearch
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="URL Fields Search"
+                        sling:resourceType="granite/ui/components/coral/foundation/container">
+                        <layout
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"/>
+                        <items jcr:primaryType="nt:unstructured">
+                            <activeSearchUrl
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/switch"
+                                fieldDescription="Generate Report listing occurrence of URLs matching provided pattern in components with path fields and RTEs authored on website pages"
+                                fieldLabel="Generate URL Search Report"
+                                name="./activeSearchUrl"/>
+                            <urlPattern
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldDescription="Provide full/partial URL pattern to search for"
+                                fieldLabel="URL Pattern"
+                                name="./urlPattern"/>
+                            <searchPath
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                fieldDescription="Provide search path. Will take from config if left blank"
+                                fieldLabel="Search Path"
+                                name="./searchPath"
+                                rootPath="/content"/>
+                        </items>
+                    </urlSearch>
+                    <propertySearch
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Property Search"
+                        sling:resourceType="granite/ui/components/coral/foundation/container">
+                        <layout
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"/>
+                        <items jcr:primaryType="nt:unstructured">
+                            <activeProperty
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/switch"
+                                fieldDescription="Generate Report listing occurrences of requested property matching property value across page properties and components."
+                                fieldLabel="Generate Property Search Report"
+                                name="./activeProperty"/>
+                            <propertyName
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldDescription="Provide property name that needs to be searched within website content"
+                                fieldLabel="Property Name"
+                                name="./propertyName"/>
+                            <propertyValue
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                fieldDescription="Provide property value that needs to be matched within website content"
+                                fieldLabel="Property Value"
+                                name="./propertyValue"/>
+                            <propertySearchPath
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                fieldDescription="Provide search path. Will take from config if left blank"
+                                fieldLabel="Search Path"
+                                name="./propertySearchPath"
+                                rootPath="/content"/>
+                        </items>
+                    </propertySearch>
+                </items>
+            </tabs>
+        </items>
+    </content>
+</jcr:root>
