@@ -141,7 +141,6 @@ document.addEventListener('DOMContentLoaded', (e) => {
 			}
 			var completeUrl = "/content/searchutility/servlets/searchTool?" + properUrl
 			$("button").click(function() {
-				console.log("enter button loop ", activeAsset);
 				$.ajax({
 					type: 'GET',
 					url: completeUrl,
