@@ -15,35 +15,35 @@
 			</tr>
 		</thead>
 		<tbody>
-		<tr data-sly-test="${properties.activeAsset} === 'true' " >
+		<tr data-sly-set.activeAsset="${properties.activeAsset} ">
 
 			<td> <b>Asset Name:</b> </td>
 			<td id="assetName">${properties.assetName}</td>
 		<td> <b>Asset Search Path:</b> </td>
 		<td id="assetPath">${properties.assetPath}</td>
 		</tr>
-		<tr data-sly-test=" ${properties.activeComp} === 'true'">
+		<tr data-sly-set.activeComp=" ${properties.activeComp} ">
 
 			<td> <b>Component Name:</b> </td>
 			<td id="compName">${properties.compName}</td>
 		<td> <b>Component Search Path:</b> </td>
 		<td id="compPath">${properties.compPath}</td>
 		</tr>
-		<tr data-sly-test=" ${properties.activeSearchString}=== 'true' ">
+		<tr data-sly-set.activeSearchString=" ${properties.activeSearchString} ">
 
 			<td> <b>Search String:</b> </td>
 			<td id="searchString">${properties.searchString}</td>
 			<td> <b>String Search Path:</b> </td>
 			<td id="rootPath">${properties.rootPath}</td>
 		</tr>
-		<tr data-sly-test="${properties.activeSearchUrl}=== 'true' ">
+		<tr data-sly-set.activeSearchUrl="${properties.activeSearchUrl} ">
 
 			<td> <b>URL to search:</b> </td>
 			<td id="urlPattern">${properties.urlPattern}</td>
 			<td> <b>Search URL:</b> </td>
 			<td id="searchPath">${properties.searchPath}</td>
 		</tr>
-		<tr data-sly-test="${properties.activeProperty}=== 'true' ">
+		<tr data-sly-set.activeProperty="${properties.activeProperty} ">
 
 			<td> <b>Property Details:</b> </td>
 			<td> <b>Property Name:</b> <b id="propertyName">${properties.propertyName}</b>
@@ -56,7 +56,8 @@
 		<button type="button">Search here</button>
 		<script>
 document.addEventListener('DOMContentLoaded', (e) => {
-     console.log('activeComp'+activeComp)
+    console.log(`Document is ready!`);
+    console.log('')
 
 			var properUrl="";
              var activeComp= false;
@@ -97,9 +98,8 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
 
 			if(activeComp === "true") {
-			var compPath = "";
 				var compName = document.getElementById("compName").innerHTML;
-				
+				var compPath = "";
                 if( !(document.getElementById("compPath").innerHTML === "")){
 				compPath = document.getElementById("compPath").innerHTML;
                 }
@@ -135,13 +135,14 @@ document.addEventListener('DOMContentLoaded', (e) => {
 				var propertyName = document.getElementById("propertyName").innerHTML;
 				var propertyValue = document.getElementById("propertyValue").innerHTML;
 				var propertySearchPath ="";
-			if( !(document.getElementById("propertySearchPath").innerHTML === "")){
+ if( !(document.getElementById("propertySearchPath").innerHTML === "")){
 				propertySearchPath = document.getElementById("propertySearchPath").innerHTML;
                 }
-				properUrl = properUrl + 'activeProperty=' + activeProperty + '&propertyName=' + propertyName + '&propertyValue=' + propertyValue + '&propertySearchPath=' + propertySearchPath 
+				properUrl = properUrl + 'activeProperty=' + activeProperty + '&propertyName=' + propertyName + '&propertyValue=' + propertyValue + '&propertySearchPath=' + propertySearchPath
 			}
 			var completeUrl = "/content/searchutility/servlets/searchTool?" + properUrl
 			$("button").click(function() {
+				console.log("enter button loop ", activeAsset);
 				$.ajax({
 					type: 'GET',
 					url: completeUrl,
