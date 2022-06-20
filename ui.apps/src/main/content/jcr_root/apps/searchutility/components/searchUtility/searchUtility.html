@@ -1,86 +1,173 @@
-
 <sly data-sly-use.template="core/wcm/components/commons/v1/templates.html"></sly>
-<sly data-sly-include="/libs/wcm/core/components/init/init.jsp"/>
+<sly data-sly-include="/libs/wcm/core/components/init/init.jsp" />
 <sly data-sly-call="${template.placeholder @ isEmpty=!text, classAppend='cmp-title'}"></sly>
-
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <div>
-<table className="table config-table table-bordered table-striped">
-            <thead>
-              <tr>
-                <th colSpan="4" className="text-center">
-                  Configured search values
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr data-sly-test.activeAsset="${properties.activeAsset}">
-                    <td>
-                      <b>Asset Name:</b>
-                    </td>
-                    <td>${properties.assetName}</td>
-                    <td>
-                      <b>Asset Search Path:</b>
-                    </td>
-                    <td>${properties.assetPath}</td>
-                  </tr>
-                <tr data-sly-test.activeComp="${properties.activeComp}">
-                    <td>
-                      <b>Component Name:</b>
-                    </td>
-                    <td>${properties.compName}</td>
-                    <td>
-                      <b>Component Search Path:</b>
-                    </td>
-                    <td>4${properties.compPath}</td>
-                  </tr>
-                   <tr data-sly-test.activeSearchString="${properties.activeSearchString}">
-                    <td>
-                      <b>Search String:</b>
-                    </td>
-                    <td>${properties.searchString}</td>
-                    <td>
-                      <b>String Search Path:</b>
-                    </td>
-                    <td>${properties.rootPath}</td>
-                  </tr>
-                     <tr data-sly-test.activeSearchUrl="${properties.activeSearchUrl}">
-                    <td>
-                      <b>Search URL:</b>
-                    </td>
-                    <td>${properties.urlPattern}</td>
-                    <td>
-                      <b>Link Search Path:</b>
-                    </td>
-                    <td>${properties.searchPath}</td>
-                  </tr>
-                <tr data-sly-test.activeProperty="${properties.activeProperty}">
-                    <td>
-                      <b>Property Details:</b>
-                    </td>
-                    <td>
-                      <b>Property Name:</b> ${properties.propertyName}
-                      <br />
-                      <b>Property Value:</b> ${properties.propertyValue}
-                    </td>
-                    <td>
-                      <b>Property Search Path:</b>
-                    </td>
-                    <td>${properties.propertySearchPath}</td>
-                  </tr>
-            </tbody>
-          </table>
-			<input type="button" value=" Search Data" id="btn1"
-            className="my-4 card-button"
+ <div id="activeAsset" style="display:none;">${properties.activeAsset}</div>
+ <div id="activeComp" style="display:none;">${properties.activeComp}</div>
+ <div id="activeSearchString" style="display:none;">${properties.activeSearchString}</div>
+ <div id="activeSearchUrl" style="display:none;">${properties.activeSearchUrl}</div>
+ <div id="activeProperty" style="display:none;">${properties.activeProperty}</div>
+	<table className="table config-table table-bordered table-striped ">
+		<thead>
+			<tr>
+				<th colSpan="4 " className="text-center "> Configured search values </th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr data-sly-test.activeAsset="${properties.activeAsset} ">
 
-          >
+				<td> <b>Asset Name:</b> </td>
+				<td id="assetName">${properties.assetName}</td>
+		<td> <b>Asset Search Path:</b> </td>
+		<td id="assetPath">${properties.assetPath}</td>
+			</tr>
+			<tr data-sly-test.activeComp=" ${properties.activeComp} ">
 
-          </input>
-</div>
-<script>
-$("#btn1").click(function(){
-  $.ajax({url: "/content/searchutility/servlets/searchTool", success: function(result){
-    $("#div1").html(result);
-  }});
-});
-</script>
+				<td> <b>Component Name:</b> </td>
+				<td id="compName">${properties.compName}</td>
+		<td> <b>Component Search Path:</b> </td>
+		<td id="compPath">${properties.compPath}</td>
+		</tr>
+		<tr data-sly-test.activeSearchString=" ${properties.activeSearchString} ">
 
+			<td> <b>Search String:</b> </td>
+			<td id="searchString">${properties.searchString}</td>
+			<td> <b>String Search Path:</b> </td>
+			<td id="rootPath">${properties.rootPath}</td>
+		</tr>
+		<tr data-sly-test.activeSearchUrl="${properties.activeSearchUrl} ">
+
+			<td> <b>URL to search:</b> </td>
+			<td id="urlPattern">${properties.urlPattern}</td>
+			<td> <b>Search URL:</b> </td>
+			<td id="searchPath">${properties.searchPath}</td>
+		</tr>
+		<tr data-sly-test.activeProperty="${properties.activeProperty} ">
+
+			<td> <b>Property Details:</b> </td>
+			<td> <b>Property Name:</b> <b id="propertyName">${properties.propertyName}</b>
+				<br /> <b>Property Value:</b> <b id="propertyValue">${properties.propertyValue}</b> </td>
+			<td> <b>Property Search Path:</b> </td>
+			<td id="propertySearchPath">${properties.propertySearchPath}</td>
+		</tr>
+		</tbody>
+		</table>
+		<button type="button">Search here</button>
+		<script>
+document.addEventListener('DOMContentLoaded', (e) => {
+    console.log(`Document is ready!`);
+
+			var properUrl="";
+             var activeComp= false;
+
+            var activeAsset= false;
+
+            var activeSearchString= false;
+
+            var activeProperty= false;
+
+            var activeSearchUrl= false;
+
+            if(!(document.getElementById("activeComp").innerHTML === ""))
+            {
+				activeComp=document.getElementById("activeComp").innerHTML;
+            }
+
+     		if(!(document.getElementById("activeAsset").innerHTML === ""))
+            {
+				activeAsset=document.getElementById("activeAsset").innerHTML;
+            }
+
+             if(!(document.getElementById("activeSearchString").innerHTML === ""))
+            {
+				activeSearchString=document.getElementById("activeSearchString").innerHTML;
+            }
+
+             if(!(document.getElementById("activeProperty").innerHTML === ""))
+            {
+				activeProperty=document.getElementById("activeProperty").innerHTML;
+            }
+
+             if(!(document.getElementById("activeSearchUrl").innerHTML === ""))
+            {
+				activeSearchUrl=document.getElementById("activeSearchUrl").innerHTML;
+            }
+
+
+
+			if(activeComp === "true") {
+				var compName = document.getElementById("compName").innerHTML;
+				var compPath = "";
+                if( !document.getElementById("compPath").innerHTML === ""){
+				compPath = document.getElementById("compPath").innerHTML;
+                }
+
+				properUrl = 'compName=' + compName + '&compPath=' + compPath + '&activeComp=' + activeComp + '&'
+			}
+			if(activeAsset === "true") {
+            var assetPath="";
+				var assetName = document.getElementById("assetName").innerHTML;
+
+                 if( !document.getElementById("assetPath").innerHTML === ""){
+				assetPath = document.getElementById("assetPath").innerHTML;
+                }
+				properUrl = properUrl + 'activeAsset=' + activeAsset + '&assetName=' + assetName + '&assetPath=' + assetPath + '&'
+			}
+			if(activeSearchString === "true") {
+				var searchString = document.getElementById("searchString").innerHTML;
+				var rootPath = "";
+                 if( !document.getElementById("rootPath").innerHTML === ""){
+				rootPath = document.getElementById("rootPath").innerHTML;
+                }
+				properUrl = properUrl + 'activeSearchString=' + activeSearchString + '&searchString=' + searchString + '&rootPath=' + rootPath + '&'
+			}
+			if(activeSearchUrl === "true") {
+				var urlPattern = document.getElementById("urlPattern").innerHTML;
+				var searchPath = "";
+                 if( !document.getElementById("searchPath").innerHTML === ""){
+				searchPath = document.getElementById("searchPath").innerHTML;
+                }
+				properUrl = properUrl + 'activeSearchUrl=' + activeSearchUrl + '&urlPattern=' + urlPattern + '&searchPath=' + searchPath + '&'
+			}
+			if(activeProperty === "true") {
+				var propertyName = document.getElementById("propertyName").innerHTML;
+				var propertyValue = document.getElementById("propertyValue").innerHTML;
+				var propertySearchPath ="";
+ if( !document.getElementById("propertySearchPath").innerHTML === ""){
+				propertySearchPath = document.getElementById("propertySearchPath").innerHTML;
+                }
+				properUrl = properUrl + 'activeProperty=' + activeProperty + '&propertyName=' + propertyName + '&propertyValue=' + propertyValue + '&propertySearchPath=' + propertySearchPath
+			}
+			var completeUrl = "/content/searchutility/servlets/searchTool?" + properUrl
+			$("button").click(function() {
+				console.log("enter button loop ", activeAsset);
+				$.ajax({
+					type: 'GET',
+					url: completeUrl,
+					dataType: "json ",
+					async: false,
+					success: function(data) {
+						console.log(data);
+						var city = ('#city');
+						$(city).empty();
+						for(var i = 0; i < data.length; i++) {
+							$(city).append('<option id=' + data[i].sysid + ' value=' + data[i].city_name + '>' + data[i].city_name + '</option>');
+						}
+						if(data.statusCode == 500) {
+							console.log("data500 ", data.message);
+						}
+					},
+					error: function(jqXHR, textStatus, errorThrown) {
+						console.log("error shown ");
+						if(jqXHR.status == 500) {
+							alert('Internal error: ' + jqXHR.responseText);
+						} else {
+							alert('Unexpected error.');
+						}
+					}
+				});
+			});
+		});
+		</script>
+	</div>
