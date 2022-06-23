@@ -10,7 +10,7 @@ import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.servlet.Servlet;
 
-import com.searchUtility.core.constants.CommonConstants;
+import org.apache.sling.api.wrappers.ValueMapDecorator;
 import com.searchUtility.core.services.ReadWriteService;
 import com.searchUtility.core.services.SearchToolService;
 import org.apache.commons.collections.iterators.TransformIterator;
@@ -28,7 +28,7 @@ import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.adobe.cq.commerce.common.ValueMapDecorator;
+
 import com.adobe.granite.ui.components.ds.DataSource;
 import com.adobe.granite.ui.components.ds.SimpleDataSource;
 import com.adobe.granite.ui.components.ds.ValueMapResource;
@@ -47,7 +47,7 @@ import com.day.cq.wcm.api.NameConstants;
 		"sling.servlet.resourceTypes=" + "searchUtility/componentsDropdownOptions" })
 
 public class ComponentsDataSource extends SlingSafeMethodsServlet {
-	
+
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOGGER = LoggerFactory.getLogger(ComponentsDataSource.class);
 
@@ -59,7 +59,7 @@ public class ComponentsDataSource extends SlingSafeMethodsServlet {
 
 	@Override
 	public void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) {
-LOGGER.debug("fetching dropdown components options");
+		LOGGER.debug("fetching dropdown components options");
 		String COMPONENTS_CONTENT_PATH = searchToolService.getComponentPath();
 
 		Map<String, String> componentsMap = new LinkedHashMap<>();
@@ -76,7 +76,7 @@ LOGGER.debug("fetching dropdown components options");
 					DataSource dataSource = new SimpleDataSource(
 							new TransformIterator(sortedComponentsMap.keySet().iterator(), o -> {
 								String category = (String) o;
-								ValueMap valueMap = new ValueMapDecorator(new HashMap<String, Object>());
+								ValueMap valueMap = new ValueMapDecorator( new HashMap<String, Object>());
 								valueMap.put("value", category);
 								valueMap.put("text", sortedComponentsMap.get(category));
 								LOGGER.debug("Putting key in valuemap : {}", category);
@@ -111,7 +111,7 @@ LOGGER.debug("fetching dropdown components options");
 				}
 			}
 		}
-			
+
 	}
 }
 
